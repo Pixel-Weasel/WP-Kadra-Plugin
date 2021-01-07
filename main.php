@@ -181,7 +181,7 @@ function teacherSubjectRenderer($attributes) {
         $user_position = get_user_meta($author->ID, "position", 1);
         if ($user_position == "0") continue;
         $user_position = preg_replace('/[0-9. ]+/', '', $user_position);
-        $subtitle .= $user_position . " - " . $user->first_namee . " " .  $user->last_nam  . "<br>";
+        $position .= "<h4 class='has-text-align-center'>" . $user_position . " - " . $user->first_name . " " .  $user->last_name  . "</h4>";
     }
 
     $args = array(
@@ -197,7 +197,8 @@ function teacherSubjectRenderer($attributes) {
         if ($author_subjects == "0") $author_subjects = " ";
         $content .= "<tr><td>" . $author_info->last_name . " " . $author_info->first_name . "</td><td>" . $author_subjects . "</td></tr>";
     }
-    $subtitle .= '<h4 class="has-text-align-center">'. $attributes[ 'content' ] .'</h4>';
+    $subtitle .= '<h3 class="has-text-align-center "><b>'. $attributes[ 'content' ] .'</b></h3>';
+    $subtitle .= $position;
     $subtitle .= '<div class="wp-block-group"><div class="wp-block-group__inner-container"><div class="wp-block-getwid-table alignwide has-table-layout-fixed has-horizontal-align-center"><table class="has-text-align-center"><tbody><tr><td>Imię i Nazwisko:</td><td>Nauczane przedmioty:</td></tr>';
     $subtitle .= $content;
     $subtitle .= '</tbody></table></div></div></div>';
