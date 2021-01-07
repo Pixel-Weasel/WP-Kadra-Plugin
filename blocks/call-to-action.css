@@ -1,0 +1,22 @@
+.wp-block-mcb-call-to-action {
+	padding: 45px;
+	text-align: center;
+	border-radius: 10px;
+	border: outset;
+}
+
+.mcb-call-to-action-content {
+	font-size: 32px;
+	color: #000;
+	padding-bottom: 12px 35px;
+	margin-bottom: 0;
+}
+
+.mcb-call-to-action-button {
+	background: #fff;
+	border: 0px;
+	border-radius: 5px;
+	padding: 12px 35px;
+	color: #000;
+	font-family: sans-serif;
+}
