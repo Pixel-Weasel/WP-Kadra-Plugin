@@ -179,8 +179,8 @@ function teacherSubjectRenderer($attributes) {
     foreach ($authors_query->results as $author) {
         $user = get_userdata($author->ID);
         $user_position = get_user_meta($author->ID, "position", 1);
-        if ($user_position == "0") continue;
-        $user_position = preg_replace('/[0-9. ]+/', '', $user_position);
+        if (strlen($user_position) < 2) continue;
+        $user_position = preg_replace('/[0-9.]+/', '', $user_position);
         $position .= "<h4 class='has-text-align-center'>" . $user_position . " - " . $user->first_name . " " .  $user->last_name  . "</h4>";
     }
 
