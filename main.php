@@ -207,3 +207,32 @@ function teacherSubjectRenderer($attributes) {
 }
 
 add_action( 'init', 'register_teacher_subjects_block' );
+
+/*
+┌──────────────────────────────────────────────────────────┐
+│                                                          │
+│       Dodanie strony do ogólnych ustawień wtyczki        │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+*/
+
+add_action( 'admin_menu', 'options_page' );
+ 
+function options_page() {
+ 
+	add_options_page(
+		'Ustawienia pluginu', // page <title>Title</title>
+		'ZSPlugin', // menu link text
+		'manage_options', // capability to access the page
+		'zsplugin-settings', // page URL slug
+		'page_content', // callback function with content
+		2 // priority
+	);
+ 
+}
+ 
+function page_content(){
+ 
+	echo 'Co słychać?';
+ 
+}
