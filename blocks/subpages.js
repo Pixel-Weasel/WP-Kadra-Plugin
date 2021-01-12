@@ -3,7 +3,7 @@
 
 	blocks.registerBlockType( 'mcb/subpages', {
 		title: 'Automatyczne wstawianie podstron', // The title of block in editor.
-        icon: 'groups', 
+        icon: 'list-view', 
         description: 'Blok do automatycznego uzupełniania podstron dla danej strony', // The description of block in editor.
 		category: 'widgets', // The category of block in editor.
 		attributes: {
