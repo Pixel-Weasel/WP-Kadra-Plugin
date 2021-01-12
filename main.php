@@ -246,29 +246,16 @@ function register_subpages_subjects_block() {
 	] );
 }
 
-function subpagesRenderer($attributes) {
-        global $post;
-        $args = array(
-            'post_type'      => 'page',
-            'posts_per_page' => -1,
-            'post_parent'    => $post->ID,
-            'order'          => 'ASC',
-            'orderby'        => 'menu_order'
-        );
-    
-    
-        $parent = new WP_Query( $args );
-    
-        if ( $parent->have_posts() ) {
-            while ( $parent->have_posts() ) {
-                $parent->the_post();
-                $subtitle .= '<div id="parent-' . the_ID() .'" class="parent-page">';
-                $subtitle .= '<h1><a href="'. the_permalink() .'">'. the_title() . '</a></h1>';
-                $subtitle .= '</div>'; 
-            } 
-        }  
-        wp_reset_postdata(); 
-    return $subtitle;
+function subpagesRenderer() {
+    global $post; 
+    if ( is_page() && $post->post_parent ) {
+        $childpages = wp_list_pages( 'sort_column=post_name&title_li=&child_of=' . $post->ID . '&echo=0' );
+    }    
+    if ( $childpages ) {
+        $content = '<ol>' . $childpages . '</ol>';
+    }
+
+    return $content; 
 }
 
 add_action( 'init', 'register_subpages_subjects_block' );
