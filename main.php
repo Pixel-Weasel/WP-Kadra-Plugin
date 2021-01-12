@@ -215,7 +215,7 @@ add_action( 'init', 'register_teacher_subjects_block' );
 │                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘
 */
-function register_subpages_subjects_block() {
+function register_subpages_block() {
 
 	// Check if Gutenberg is active.
 	if ( ! function_exists( 'register_block_type' ) ) {
@@ -258,4 +258,4 @@ function subpagesRenderer() {
     return $content; 
 }
 
-add_action( 'init', 'register_subpages_subjects_block' );
+add_action( 'init', 'register_subpages_block' );
