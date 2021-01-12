@@ -4,7 +4,7 @@ Plugin Name: ZSPlugin
 Plugin URI: https://zs-belzyce.edu.pl/
 Description: Plugin do wyświetlania przedmiotów nauczanych przez nauczycieli oraz kadry.
 Version: 1.3
-Author: <a href="https://github.com/EVBlue">Daniel Kamiński</a>, <a href="https://github.com/jakubZlotek">Jakub Złotek</a>
+Author: <a href="https://github.com/KaminskiDaniell">Daniel Kamiński</a>, <a href="https://github.com/jakubZlotek">Jakub Złotek</a>
 Author URI: https://jajuwa.xyz/
 License: MIT
 */
