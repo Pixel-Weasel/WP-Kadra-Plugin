@@ -132,11 +132,11 @@ add_action('manage_users_columns', 'register_custom_user_column');
 add_action('manage_users_custom_column', 'register_custom_user_column_view', 10, 3);
 
 /*
-┌──────────────────────────────────────────────────────┐
-│                                                      │
-│       Dodanie customowego bloku do Gutenberga        │
-│                                                      │
-└──────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                  │
+│       Dodanie customowego bloku wyświetlającego nauczycieli do Gutenberga        │
+│                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────┘
 */
 function register_teacher_subjects_block() {
 
@@ -209,30 +209,66 @@ function teacherSubjectRenderer($attributes) {
 add_action( 'init', 'register_teacher_subjects_block' );
 
 /*
-┌──────────────────────────────────────────────────────────┐
-│                                                          │
-│       Dodanie strony do ogólnych ustawień wtyczki        │
-│                                                          │
-└──────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                  │
+│       Dodanie customowego bloku wyświetlającego podstrony dla danej strony       │
+│                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────┘
 */
+function register_subpages_subjects_block() {
 
-add_action( 'admin_menu', 'options_page' );
- 
-function options_page() {
- 
-	add_options_page(
-		'Ustawienia pluginu', // page <title>Title</title>
-		'ZSPlugin', // menu link text
-		'manage_options', // capability to access the page
-		'zsplugin-settings', // page URL slug
-		'page_content', // callback function with content
-		2 // priority
+	// Check if Gutenberg is active.
+	if ( ! function_exists( 'register_block_type' ) ) {
+		return;
+	}
+
+	// Add block script.
+	wp_register_script(
+		'subpages',
+		plugins_url( 'blocks/subpages.js', __FILE__ ),
+		[ 'wp-blocks', 'wp-element', 'wp-editor' ],
+		filemtime( plugin_dir_path( __FILE__ ) . 'blocks/subpages.js' )
 	);
- 
+
+	// Add block style.
+	wp_register_style(
+		'subpages',
+		plugins_url( 'blocks/subpages.css', __FILE__ ),
+		[],
+		filemtime( plugin_dir_path( __FILE__ ) . 'blocks/subpages.css' )
+	);
+
+	// Register block script and style.
+	register_block_type( 'mcb/subpages', [
+		'style' => 'subpages', // Loads both on editor and frontend.
+        'editor_script' => 'subpages', // Loads only on editor.
+        'render_callback' => 'subpagesRenderer',
+	] );
 }
- 
-function page_content(){
- 
-	echo 'Co słychać?';
- 
+
+function subpagesRenderer($attributes) {
+        global $post;
+        $args = array(
+            'post_type'      => 'page',
+            'posts_per_page' => -1,
+            'post_parent'    => $post->ID,
+            'order'          => 'ASC',
+            'orderby'        => 'menu_order'
+        );
+    
+    
+        $parent = new WP_Query( $args );
+    
+        if ( $parent->have_posts() ) {
+            while ( $parent->have_posts() ) {
+                $parent->the_post();
+                $subtitle .= '<div id="parent-' . the_ID() .'" class="parent-page">';
+                $subtitle .= '<h1><a href="'. the_permalink() .'">'. the_title() . '</a></h1>';
+                $subtitle .= '</div>'; 
+            } 
+        }  
+        wp_reset_postdata(); 
+    return $subtitle;
 }
+
+add_action( 'init', 'register_subpages_subjects_block' );
