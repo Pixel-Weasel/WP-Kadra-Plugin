@@ -3,6 +3,8 @@
 	text-align: center;
 	border-radius: 10px;
 	border: outset;
+	background: #f4aeba;
+	color: white;
 }
 
 .mcb-call-to-action-content {
