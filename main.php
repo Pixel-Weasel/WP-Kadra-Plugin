@@ -302,17 +302,16 @@ function register_free_dates_block() {
 function freedatesRenderer() {
 
     $freedates = get_option( 'zsplugin_ustawienia_option_name' );
-    var_dump($freedates);
-
-    $content .= '<hr class="post-title-elem">';
-    $content .= '<h4>'. $freedates['title'] .'</h4>';
-    $dates = explode("|",$freedates['content']);
-    print_r($dates);
-    $content .= '<ul>';
-    foreach ($dates as $date) {
-        $content .= '<li>'. $date .'</li>';
+    if ($freedates) {
+        $content .= '<hr class="wp-block-mcb-hr">';
+        $content .= '<h4>'. $freedates['title'] .'</h4>';
+        $dates = explode("|",$freedates['content']);
+        $content .= '<ul>';
+        foreach ($dates as $date) {
+            $content .= '<li>'. $date .'</li>';
+        }
+        $content .= '</ul>';
     }
-    $content .= '</ul>';
     return $content; 
 }
 
@@ -343,10 +342,12 @@ class ZSPluginUstawienia {
 
 		<div class="wrap">
 			<h2>ZSPlugin</h2>
-			<p>siabadabadaba złotek robi daba</p>
+			<p>Strona konfiguracyjna dla wtyczki ZSPlugin</p>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
+            <h4>Konfiuracja bloku Dni Wolne od zajęć</h4>
+			<p>Wzór do wstawiania dat: xx.xx.xxxx | xx.xx.xxxx. Pionowa kreska "|" jest separatorem dat</p>
 				<?php
 					settings_fields( 'zsplugin_ustawienia_option_group' );
 					do_settings_sections( 'zsplugin-ustawienia-admin' );
